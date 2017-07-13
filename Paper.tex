@@ -940,7 +940,7 @@ Cela établit que l'éxécution se trouve dans un état d'arrêt exceptionnel s'
 
 Nous avons auparavant utilisé $D$ comme fonction pour déterminer l'ensemble des destinations de saut valides étant donné le code en train de tourner. Nous définissons ceci comme toute position dans le code occupée par une instruction {\small JUMPDEST}.
 
-Toutes ces positions doivent se trouver sur des limites d'instruction valides au lieu d'occuper la partie de données des opération {\small PUSH} et doivent apparaître dans la portion explicitement définie du code (et non dans les opérations {\small STOP} implicitement définies qui les suivent).
+Toutes ces positions doivent se trouver sur des limites d'instruction valides au lieu d'occuper la partie de données des opérations {\small PUSH} et doivent apparaître dans la portion explicitement définie du code (et non dans les opérations {\small STOP} implicitement définies qui les suivent).
 
 Formellement\,:
 \begin{equation}
@@ -1010,7 +1010,7 @@ Cependant, les instructions altèrent typiquement une ou plusieurs composantes d
 
 La blockchain typique est un chemin de la racine jusqu'à la feuille à travers toute l'arborescence des blocs. Pour atteindre le consensus sur ce chemin, conceptuellement, nous identifions celui où le plus de calculs ont été effectués, c'est-à-dire le chemin dont \textit{le poids est le plus élevé}. L'un des facteurs qui permettent de déterminer le chemin dont poids le plus élevé est clairement le numéro de bloc de la feuille, qui est équivalent au nombre de blocs sans compter le bloc \textit{genesis} non miné, dans le chemin. Plus le chemin est long, plus l'effort nécessaire pour arriver à la feuille a été grand. Ce principe est comparable à d'autres, comme ceux employés dans les protocoles dérivés de Bitcoin.
 
-Comme un en-tête de bloc inclut la difficulté, il suffit à lui seul à valider le calcul effectué. Chaque bloc contribue au calcul total, ou à la \textit{diffulté totale} d'une chaîne.
+Comme un en-tête de bloc inclut la difficulté, il suffit à lui seul à valider le calcul effectué. Chaque bloc contribue au calcul total, ou à la \textit{difficulté totale} d'une chaîne.
 
 En conséquence, nous définissons récursivement la difficulté totale du bloc $B$ comme suit\,:
 \begin{eqnarray}
@@ -1056,7 +1056,7 @@ où $B(H)$ est le bloc de l'en-tête correspondant $H$.
 
 %where $s[i]$ equals the root of the state trie immediately after the execution of the transaction $B_\mathbf{T}[i]$, and $g[i]$ the total gas used immediately after said transaction.
 
-Le \textbf{gasUsed} donné doit correspondre fidèlement aux transactions listées\,:  ${B_H}_g$, le gaz total  utilisé dans le bloc doit être égal au gaz accumulé utilisé d'après la transaction finale\,:
+Le \textbf{gasUsed} donné doit correspondre fidèlement aux transactions listées\,:  ${B_H}_g$, le gaz total  utilisé dans le bloc doit être égal au gaz accumulé et utilisé d'après la transaction finale\,:
 \begin{equation}
 {B_H}_g = \ell(\mathbf{R})_u
 \end{equation}
@@ -1071,7 +1071,7 @@ L'application des récompenses à un bloc implique d'augmenter le solde des comp
  \boldsymbol{\sigma}'[U_c]_b & = & \boldsymbol{\sigma}[U_c]_b + (1 + \frac{1}{8} (U_i - {B_H}_i)) R_b
 \end{eqnarray}
 
-S'il existe des collision des adresses de bénéficiaires entre les oncles et le bloc (c'est-à-dire deux oncles ave la même adresse de bénéficiaire ou un oncle avec la même adresse de bénéficiaire que celle du bloc actuel), les additions sont appliquées de manière cumulative.
+S'il existe des collisions des adresses de bénéficiaires entre les oncles et le bloc (c'est-à-dire deux oncles ave la même adresse de bénéficiaire ou un oncle avec la même adresse de bénéficiaire que celle du bloc actuel), les additions sont appliquées de manière cumulative.
 
 Nous définissons la récompense de bloc qui est de 5 Ether\,:
 \begin{equation}
@@ -1088,7 +1088,7 @@ Nous pouvons maintenant définir la fonction, $\Gamma$, qui fait correspondre un
 \end{cases}
 \end{equation}
 
-Ici, $\mathtt{\small TRIE}(L_S(\boldsymbol{\sigma}_i))$ signifie l'empreinte du n\oe{}ud racine du trie (arbre préfixe) d'état $\boldsymbol{\sigma}_i$\,; on suppose que les implémentations le stockeront dans la base d'état, ce qui est trivial et efficient puisque le trie est par nature une structure de données immuable.
+Ici, $\mathtt{\small TRIE}(L_S(\boldsymbol{\sigma}_i))$ signifie l'empreinte du n\oe{}ud racine du tree (arbre préfixe) d'état $\boldsymbol{\sigma}_i$\,; on suppose que les implémentations le stockeront dans la base d'état, ce qui est trivial et efficient puisque le tree est par nature une structure de données immuable.
 
 Et nous définissons finalement $\Phi$, la fonction de transition de bloc, qui fait correspondre un bloc incomplet $B$ à un bloc complet $B'$\,:
 \begin{eqnarray}
@@ -1126,7 +1126,7 @@ Enfin, nous définissons $\Pi$ comme le nouvel état étant donnée la fonction 
 \Pi(\boldsymbol{\sigma}, B) \equiv \Omega(B, \ell(\mathbf{R})_{\boldsymbol{\sigma}})
 \end{equation}
 
-Donc le mécanisme de transition de bloc, moins  $\mathtt{PoW}$, la fonction de preuve de travail, est défini.
+Donc le mécanisme de transition de bloc, moins  $\mathtt{PoW}$, la fonction de preuve de travail, est définie.
 
 \subsection{Preuve de travail de minage} \label{ch:pow}
 
@@ -1151,10 +1151,10 @@ Où $H_{\hcancel{n}}$ est le nouvel en-tête de bloc mais \textit{sans} le nonce
 \subsubsection{Ethash}
 Ethash est l'algorithme de preuve de travail pour la version 1.0 d'Ethereum. C'est la dernière version du Dagger-Hashimoto, présenté par \cite{dagger} et \cite{hashimoto}, malgré qu'il ne peut plus être appelé ainsi puisque nombre des fonctionnalités de ces deux algorithmes ont été grandement changées ces derniers mois de recherche et développement. Le comportement général de l'algorithme est le suivant\,:
 
-Il existe une graine qui peut être calculée pour chaque bloc en scannant son en-tête jusqu'à ce point. A pertir de la graine, on peut calculer un cache pseudo-aléatoire, de $J_{cacheinit}$ octets de taille initiale. Les clients légers stockent le cache. Depuis le cache on peut générer un ensemble de données, de $J_{datasetinit}$ octets de taille initiale, avec la propriété que chaque élément de l'ensemble de données dépend de seulement un petit nombre d'éléments du cache. Les clients complets et les mineurs stockent l'ensemble des données. L'ensemble des données croît linéairement avec le temps.
+Il existe une graine qui peut être calculée pour chaque bloc en scannant son en-tête jusqu'à ce point. A partir de la graine, on peut calculer un cache pseudo-aléatoire, de $J_{cacheinit}$ octets de taille initiale. Les clients légers stockent le cache. Depuis le cache on peut générer un ensemble de données, de $J_{datasetinit}$ octets de taille initiale, avec la propriété que chaque élément de l'ensemble de données dépend de seulement un petit nombre d'éléments du cache. Les clients complets et les mineurs stockent l'ensemble des données. L'ensemble des données croît linéairement avec le temps.
 
 
-Le minage consiste en sélectionnant des tranches de l'ensemble des données et en faisant des empreintes de leurs combinaisons. La vérification peut être faite avec peu de mémoire en utilisant le cache pour régénérer les éléments spécifiques de l'ensemble des données dont vous avez besoin, et ainsi vous n'avez besoin que de stocker le cache. L'ensemble des données est mis à jour tous les $J_{epoch}$ blocs, donc la grande majorité de l'effort de minage sera de lire les données, et non de les changer. Les paramètres cités comme l'algorithme lui-même sont décrits en annexe \ref{app:ethash}.
+Le minage consiste en sélectionnant des tranches de l'ensemble des données et en faisant des empreintes de leurs combinaisons. La vérification peut être faite avec peu de mémoire en utilisant le cache pour régénérer les éléments spécifiques de l'ensemble des données dont vous avez besoin, et ainsi vous n'avez pas besoin de stocker le cache. L'ensemble des données est mis à jour tous les $J_{epoch}$ blocs, donc la grande majorité de l'effort de minage sera de lire les données, et non de les changer. Les paramètres cités comme l'algorithme lui-même sont décrits en annexe \ref{app:ethash}.
 
 \section{Implémentation des contrats}
 
@@ -1166,15 +1166,15 @@ Un contrat de source de données fournit un simple service\,: il donne accès de
 Le modèle général implique un unique contrat dans Ethereum qui, à réception d'un appel de message, répond par une information en temps voulu concernant un phénomène extérieur, par exemple la température à New York. Cela peut être implémenté par un contrat qui renvoie cette valeur depuis un point connu dans la mémoire de stockage. Ce dernier doit être bien entendu maintenu avec la température correcte et la seconde partie du modèle implique donc un serveur externe faisant tourner un n\oe{}ud Ethereum qui, au moment précis de la découverte d'un nouveau bloc, crée une nouvelle transaction valide, envoyée au contrat, mettant la valeur en question dans la mémoire de stockage. Le code du contrat n'accepterait de mises à jour que depuis l'identité contenue dans le serveur.
 
 \subsection{Nombres aléatoires}
-La fourniture de nombres aléatoire au sein d'un système déterministe relève naturellement de l'impossible. Nous pouvons cependant aboutir à une approximation en utilisant des données qui sont généralement inconnues au moment de la transaction. Ces données comprennent l'empreinte du bloc, son horodatage et l'adresse de son bénéficiaire. Afin de compliquer le contrôle éventuel de ces valeurs par un mineur malveillant, il faudrait employer l'opération {\small BLOCKHASH} pour utiliser des empreintes des 256 blocs précédents comme nombres pseudo-aléatoires. Pour une série de ces nombres, une solution triviale consiste à y ajouter un montant constant et à prendre l'empreinte du résultat.
+La fourniture de nombres aléatoires au sein d'un système déterministe relève naturellement de l'impossible. Nous pouvons cependant aboutir à une approximation en utilisant des données qui sont généralement inconnues au moment de la transaction. Ces données comprennent l'empreinte du bloc, son horodatage et l'adresse de son bénéficiaire. Afin de compliquer le contrôle éventuel de ces valeurs par un mineur malveillant, il faudrait employer l'opération {\small BLOCKHASH} pour utiliser des empreintes des 256 blocs précédents comme nombres pseudo-aléatoires. Pour une série de ces nombres, une solution triviale consiste à y ajouter un montant constant et à prendre l'empreinte du résultat.
 
 \section{Future Directions} \label{ch:future}
 
-Dans le futur, la base de données à état ne sera pas forcée de maintenir tous les états passés des structures du trie. Elle devra maintenir un âge pour chaque noeud et eventuellement rejeter les noeuds qui ne sont ni assez récents, ni des checkpoints\,; les checkpoints, ou un ensemble de noeuds dans la base de donnée qui autorisent à traverser un trie d'état de bloc, peuvent être utilisés pour placer une limite maximum sur le volume de calcul nécessaire pour récupérer n'importe quel état à travers la blockchain.
+Dans le futur, la base de données à état ne sera pas forcée de maintenir tous les états passés des structures du tree. Elle devra maintenir un âge pour chaque noeud et eventuellement rejeter les noeuds qui ne sont ni assez récents, ni des checkpoints\,; les checkpoints, ou un ensemble de noeuds dans la base de donnée qui autorisent à traverser un trie d'état de bloc, peuvent être utilisés pour placer une limite maximum sur le volume de calcul nécessaire pour récupérer n'importe quel état à travers la blockchain.
 
-La consolidation de la blockchain peut être utilisée dans le but de réduire le nombre de blocs qu'un client a besoin de télécharger pour agir comme un mineur, un noeud complet. Une archive compressée de la structure du trie à des points donnés dans le temps (par exemple une tous les 10 000 blocs) peut être maintenue par le réseau de pairs, en renouvelant efficacement le bloc genesis. Cela pourrait réduire le volume à télécharger à une simple archive plus une limite maximum de blocs en dur.
+La consolidation de la blockchain peut être utilisée dans le but de réduire le nombre de blocs qu'un client a besoin de télécharger pour agir comme un mineur, un noeud complet. Une archive compressée de la structure du tree à des points donnés dans le temps (par exemple une tous les 10 000 blocs) peut être maintenue par le réseau de pairs, en renouvelant efficacement le bloc genesis. Cela pourrait réduire le volume à télécharger à une simple archive plus une limite maximum de blocs en dur.
 
-Enfin, la compression de la blockchain pourrait peut-être être menée\,: les noeuds dans un trie d'état qui n'ont pas envoyé/reçu de transaction dans un certain nombre de blocs donné pourraient être rejetés, réduisant les fuites d'ethers ainsi que l'accroissement de la base de donnée d'état.
+Enfin, la compression de la blockchain pourrait peut-être être menée\,: les noeuds dans un tree d'état qui n'ont pas envoyé/reçu de transaction dans un certain nombre de blocs donné pourraient être rejetés, réduisant les fuites d'ethers ainsi que l'accroissement de la base de donnée d'état.
 
 \subsection{extensibilité}
 
